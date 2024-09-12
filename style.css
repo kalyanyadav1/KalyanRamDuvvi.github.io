@@ -183,10 +183,6 @@ section:hover {
 
 /* Image size settings */
 img {
-    width: 150px;
-    /* Set width */
-    height: 150px;
-    /* Set height */
     object-fit: cover;
     /* Ensures the image retains its aspect ratio while covering the area */
     border-radius: 8px;
