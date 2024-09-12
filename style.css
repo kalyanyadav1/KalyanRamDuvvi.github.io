@@ -6,47 +6,42 @@
 }
 
 body {
-    background-color: black;
-    color: white;
+    background-color: #f4f4f4;
+    color: #333;
     padding: 20px;
 }
 
 .container {
-    max-width: 900px;
+    max-width: 1000px;
     margin: 0 auto;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 header h1 {
     font-size: 2.5rem;
-    color: #0073e6;
+    color: #333;
     text-align: center;
     margin-bottom: 10px;
 }
 
 header h3 {
-    font-size: 1.5rem;
-    color: #555;
+    font-size: 1.8rem;
+    color: #666;
     text-align: center;
     margin-bottom: 20px;
 }
 
-.profile-views {
-    text-align: left;
-    margin-bottom: 20px;
-}
-
 .about-me ul {
-    list-style-type: none;
-    margin-bottom: 20px;
+    list-style: none;
+    margin: 20px 0;
 }
 
 .about-me li {
     font-size: 1.1rem;
-    margin: 10px 0;
+    padding: 10px 0;
 }
 
 a {
@@ -55,43 +50,46 @@ a {
 }
 
 .social-links {
-    text-align: left;
     margin-bottom: 20px;
 }
 
-.social-links img {
+.social-icons {
+    display: flex;
+    gap: 15px;
+}
+
+.social-icons img {
     width: 30px;
     height: 30px;
-    margin: 0 10px;
+    transition: transform 0.2s;
+}
+
+.social-icons img:hover {
+    transform: scale(1.2);
 }
 
 .skills {
-    margin-bottom: 30px;
+    margin-top: 20px;
 }
 
 .skill-category h4 {
-    margin-bottom: 10px;
+    font-size: 1.3rem;
     color: #333;
+    margin-bottom: 10px;
 }
 
 .icons {
     display: flex;
-    gap: 15px;
     flex-wrap: wrap;
+    gap: 20px;
 }
 
 .icons img {
     width: 40px;
     height: 40px;
+    transition: transform 0.2s;
 }
 
-.github-stats {
-    text-align: center;
-    margin-top: 30px;
-}
-
-.github-stats img {
-    width: 100%;
-    max-width: 500px;
-    margin: 10px 0;
+.icons img:hover {
+    transform: scale(1.1);
 }
