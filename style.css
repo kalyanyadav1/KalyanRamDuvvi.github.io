@@ -168,8 +168,8 @@ section:hover {
 }
 /* Image size settings */
 img {
-    width: 50px;  /* Set width */
-    height: 50px; /* Set height */
+    width: 10%;  /* Set width */
+    height: 10%; /* Set height */
     object-fit: cover; /* Ensures the image retains its aspect ratio while covering the area */
     border-radius: 8px; /* Optional: Add rounded corners */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow for a polished look */
@@ -183,7 +183,7 @@ img:hover {
 
 /* Social Links section, setting all icons equal size */
 .social-links a img {
-    width: 50px; /* Icon size for social links */
-    height: 50px;
+    width: 20%; /* Icon size for social links */
+    height: 20%;
     object-fit: cover; /* Makes sure icons keep proportions and fit within the box */
 }
