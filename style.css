@@ -211,7 +211,8 @@ img:hover {
     /* Ensures the icons retain their aspect ratio and fit within the box */
 }
 .certifications canvas {
-    max-width: 100%; /* Responsive sizing */
-    height: auto;    /* Maintain aspect ratio */
+    max-width: 800px;  /* Set a max width to prevent breaking */
+    width: 100%;       /* Make it responsive */
+    height: auto;      /* Maintain aspect ratio */
     margin-bottom: 20px; /* Space between canvases */
 }
