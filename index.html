@@ -8,42 +8,8 @@
     <title>Kalyan Ram Duvvi</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="your-logo-url" type="image/png">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
 </head>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
-<script>
-    const pdfUrl = ['./eCertificate.pdf,./Data Science.pdf','./CYBER SECURITY CERTIFICATE.pdf','./Bug hunting.pdf', './Web Development Training - Certificate of Completion.pdf', './python for everybody.pdf']; // Replace with your PDF file path
-
-    pdfUrls.forEach(pdfUrl => {
-            pdfjsLib.getDocument(pdfUrl).promise.then(pdf => {
-                const numPages = pdf.numPages;
-                const container = document.createElement('div');
-
-                const renderPage = (pageNum) => {
-                    pdf.getPage(pageNum).then(page => {
-                        const scale = 0.5; // Adjust scale for smaller images
-                        const viewport = page.getViewport({ scale });
-                        const canvas = document.createElement('canvas');
-                        canvas.width = viewport.width;
-                        canvas.height = viewport.height;
-
-                        const context = canvas.getContext('2d');
-
-                        page.render({ canvasContext: context, viewport }).promise.then(() => {
-                            container.appendChild(canvas);
-                            if (pageNum < numPages) {
-                                renderPage(pageNum + 1); // Render next page
-                            } else {
-                                document.querySelector('.certifications').appendChild(container);
-                            }
-                        });
-                    });
-                };
-
-                renderPage(1); // Start rendering the first page of the current PDF
-            });
-        });
-    </script>
-
 <body>
     <div class="container">
         <!-- Header Section -->
@@ -120,13 +86,53 @@
                 </li>
             </ul>
         </section>
-
-        <!-- Certifications Section -->
         <section class="certifications">
             <h3>Certifications</h3>
-            <div class="certifications"></div>
         </section>
-        
+
+        <script>
+            const pdfUrls = [
+                './eCertificate.pdf',
+                './Bug hunting.pdf',
+                './CYBER SECURITY CERTIFICATE.pdf',
+                './Data Science.pdf',
+                './python for everybody.pdf',
+                './Web Development Training.pdf',
+                './Web Development Training - Certificate of Completion.pdf'
+            ]; // Replace with your PDF file paths
+
+            pdfUrls.forEach(pdfUrl => {
+                pdfjsLib.getDocument(pdfUrl).promise.then(pdf => {
+                    const numPages = pdf.numPages;
+                    const container = document.createElement('div');
+
+                    const renderPage = (pageNum) => {
+                        pdf.getPage(pageNum).then(page => {
+                            const scale = 0.5; // Adjust scale for smaller images
+                            const viewport = page.getViewport({ scale });
+                            const canvas = document.createElement('canvas');
+                            canvas.width = viewport.width;
+                            canvas.height = viewport.height;
+
+                            const context = canvas.getContext('2d');
+
+                            page.render({ canvasContext: context, viewport }).promise.then(() => {
+                                container.appendChild(canvas);
+                                if (pageNum < numPages) {
+                                    renderPage(pageNum + 1); // Render next page
+                                } else {
+                                    document.querySelector('.certifications').appendChild(container);
+                                }
+                            });
+                        });
+                    };
+
+                    renderPage(1); // Start rendering the first page of the current PDF
+                });
+            });
+        </script>
+        </section>
+
         <!-- Academic Achievements Section -->
         <section class="achievements">
             <h3>Academic Achievements</h3>
