@@ -213,4 +213,5 @@ img:hover {
 .certifications canvas {
     max-width: 100%; /* Responsive sizing */
     height: auto;    /* Maintain aspect ratio */
+    margin-bottom: 20px; /* Space between canvases */
 }

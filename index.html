@@ -10,6 +10,7 @@
     <link rel="icon" href="your-logo-url" type="image/png">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
 </head>
+
 <body>
     <div class="container">
         <!-- Header Section -->
@@ -101,37 +102,42 @@
                 './Web Development Training - Certificate of Completion.pdf'
             ]; // Replace with your PDF file paths
 
-            pdfUrls.forEach(pdfUrl => {
+            const certificationsContainer = document.querySelector('.certifications');
+            let commonScale = 0.5; // Default scale for rendering
+
+            // Function to render a single PDF file
+            function renderPdf(pdfUrl, callback) {
                 pdfjsLib.getDocument(pdfUrl).promise.then(pdf => {
-                    const numPages = pdf.numPages;
-                    const container = document.createElement('div');
+                    pdf.getPage(1).then(page => {
+                        // Calculate scale based on the first page dimensions
+                        const viewport = page.getViewport({ scale: commonScale });
+                        const canvas = document.createElement('canvas');
+                        const context = canvas.getContext('2d');
 
-                    const renderPage = (pageNum) => {
-                        pdf.getPage(pageNum).then(page => {
-                            const scale = 0.5; // Adjust scale for smaller images
-                            const viewport = page.getViewport({ scale });
-                            const canvas = document.createElement('canvas');
-                            canvas.width = viewport.width;
-                            canvas.height = viewport.height;
+                        canvas.width = viewport.width;
+                        canvas.height = viewport.height;
 
-                            const context = canvas.getContext('2d');
-
-                            page.render({ canvasContext: context, viewport }).promise.then(() => {
-                                container.appendChild(canvas);
-                                if (pageNum < numPages) {
-                                    renderPage(pageNum + 1); // Render next page
-                                } else {
-                                    document.querySelector('.certifications').appendChild(container);
-                                }
-                            });
+                        // Render the page onto the canvas
+                        page.render({ canvasContext: context, viewport }).promise.then(() => {
+                            certificationsContainer.appendChild(canvas);
+                            if (callback) callback();
                         });
-                    };
-
-                    renderPage(1); // Start rendering the first page of the current PDF
+                    });
                 });
-            });
+            }
+
+            // Function to render PDFs in sequence
+            function renderPdfsSequentially(urls, index = 0) {
+                if (index < urls.length) {
+                    renderPdf(urls[index], () => {
+                        renderPdfsSequentially(urls, index + 1); // Render the next PDF after current finishes
+                    });
+                }
+            }
+
+            // Start rendering the PDFs in sequence
+            renderPdfsSequentially(pdfUrls);
         </script>
-        </section>
 
         <!-- Academic Achievements Section -->
         <section class="achievements">
