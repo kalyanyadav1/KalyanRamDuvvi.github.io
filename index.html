@@ -101,28 +101,37 @@
                 './Web Development Training.pdf',
                 './Web Development Training - Certificate of Completion.pdf'
             ]; // Replace with your PDF file paths
-
             const certificationsContainer = document.querySelector('.certifications');
-            let commonScale = 0.5; // Default scale for rendering
+            const maxCanvasWidth = 800; // Maximum width for the canvas
 
             // Function to render a single PDF file
             function renderPdf(pdfUrl, callback) {
                 pdfjsLib.getDocument(pdfUrl).promise.then(pdf => {
                     pdf.getPage(1).then(page => {
-                        // Calculate scale based on the first page dimensions
-                        const viewport = page.getViewport({ scale: commonScale });
+                        const viewport = page.getViewport({ scale: 1 });
+
+                        // Dynamically scale based on the canvas width
+                        const scale = maxCanvasWidth / viewport.width;
+                        const scaledViewport = page.getViewport({ scale });
+
                         const canvas = document.createElement('canvas');
                         const context = canvas.getContext('2d');
 
-                        canvas.width = viewport.width;
-                        canvas.height = viewport.height;
+                        canvas.width = scaledViewport.width;
+                        canvas.height = scaledViewport.height;
 
                         // Render the page onto the canvas
-                        page.render({ canvasContext: context, viewport }).promise.then(() => {
+                        page.render({ canvasContext: context, viewport: scaledViewport }).promise.then(() => {
                             certificationsContainer.appendChild(canvas);
                             if (callback) callback();
+                        }).catch(error => {
+                            console.error("Error during page rendering:", error);
                         });
+                    }).catch(error => {
+                        console.error("Error while getting page:", error);
                     });
+                }).catch(error => {
+                    console.error("Error while loading PDF:", error);
                 });
             }
 
