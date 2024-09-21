@@ -9,6 +9,32 @@
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="your-logo-url" type="image/png">
 </head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
+<script>
+    const pdfUrl = './Web Development Training - Certificate of Completion.pdf'; // Replace with your PDF file path
+
+    pdfjsLib.getDocument(pdfUrl).promise.then(pdf => {
+        const numPages = pdf.numPages;
+        const container = document.createElement('div');
+
+        for (let pageNum = 1; pageNum <= numPages; pageNum++) {
+            pdf.getPage(pageNum).then(page => {
+                const scale = 1.5; // Adjust scale for better image quality
+                const viewport = page.getViewport({ scale });
+                const canvas = document.createElement('canvas');
+                canvas.width = viewport.width;
+                canvas.height = viewport.height;
+
+                const context = canvas.getContext('2d');
+
+                page.render({ canvasContext: context, viewport }).promise.then(() => {
+                    container.appendChild(canvas);
+                    document.querySelector('.certifications').appendChild(container);
+                });
+            });
+        }
+    });
+</script>
 
 <body>
     <div class="container">
@@ -89,19 +115,10 @@
 
         <!-- Certifications Section -->
         <section class="certifications">
-            <h3>Certifications & Awards</h3>
-            <ul>
-                <li>Certificate in Java SE 8 Programmer I (IZ0-808) - Oracle</li>
-                <li>Web Development Certification</li>
-                <li>Hands-on Hadoop for Non-Java (Udemy)</li>
-                <li>Introduction to Cyber Security Tools and Cyber Attacks (Coursera)</li>
-                <li>Programming for Everybody (Coursera)</li>
-                <li>What is Data Science (Coursera)</li>
-                <li>Using Python to Access Web Data (Coursera)</li>
-                <li>Python Data Structures (Coursera)</li>
-            </ul>
+            <h3>Certifications</h3>
+            <div class="certifications"></div>
         </section>
-
+        
         <!-- Academic Achievements Section -->
         <section class="achievements">
             <h3>Academic Achievements</h3>
@@ -322,17 +339,6 @@
                             alt="Spring" /></a>
 
                 </div>
-            </div>
-        </section>
-        <section class="certifications">
-            <h3>Certifications</h3>
-            <div class="certifications">
-                <embed src="./eCertificate.pdf" width="600" height="500" type="application/pdf" />
-                <embed src="./CYBER SECURITY CERTIFICATE.pdf" width="600" height="500" type="application/pdf" />
-                <embed src="./Bug hunting.pdf" width="600" height="500" type="application/pdf" />
-                <embed src="./Data Science.pdf" width="600" height="500" type="application/pdf" />
-                <embed src="./python for everybody.pdf" width="600" height="500" type="application/pdf" />
-                <embed src="./Web Development Training - Certificate of Completion.pdf" width="600" height="500" type="application/pdf" />
             </div>
         </section>
         <section class="social-links">
