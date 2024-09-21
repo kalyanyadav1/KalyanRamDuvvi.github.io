@@ -11,7 +11,7 @@
 </head>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
 <script>
-    const pdfUrl = './eCertificate.pdf,./Data Science.pdf,./CYBER SECURITY CERTIFICATE.pdf,./Bug hunting.pdf, ./Web Development Training - Certificate of Completion.pdf, ./python for everybody.pdf'; // Replace with your PDF file path
+    const pdfUrl = ['./eCertificate.pdf,./Data Science.pdf','./CYBER SECURITY CERTIFICATE.pdf','./Bug hunting.pdf', './Web Development Training - Certificate of Completion.pdf', './python for everybody.pdf']; // Replace with your PDF file path
 
     pdfjsLib.getDocument(pdfUrl).promise.then(pdf => {
         const numPages = pdf.numPages;
