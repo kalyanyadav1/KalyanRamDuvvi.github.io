@@ -13,28 +13,36 @@
 <script>
     const pdfUrl = ['./eCertificate.pdf,./Data Science.pdf','./CYBER SECURITY CERTIFICATE.pdf','./Bug hunting.pdf', './Web Development Training - Certificate of Completion.pdf', './python for everybody.pdf']; // Replace with your PDF file path
 
-    pdfjsLib.getDocument(pdfUrl).promise.then(pdf => {
-        const numPages = pdf.numPages;
-        const container = document.createElement('div');
+    pdfUrls.forEach(pdfUrl => {
+            pdfjsLib.getDocument(pdfUrl).promise.then(pdf => {
+                const numPages = pdf.numPages;
+                const container = document.createElement('div');
 
-        for (let pageNum = 1; pageNum <= numPages; pageNum++) {
-            pdf.getPage(pageNum).then(page => {
-                const scale = 0.5; // Adjust scale for better image quality
-                const viewport = page.getViewport({ scale });
-                const canvas = document.createElement('canvas');
-                canvas.width = viewport.width;
-                canvas.height = viewport.height;
+                const renderPage = (pageNum) => {
+                    pdf.getPage(pageNum).then(page => {
+                        const scale = 0.5; // Adjust scale for smaller images
+                        const viewport = page.getViewport({ scale });
+                        const canvas = document.createElement('canvas');
+                        canvas.width = viewport.width;
+                        canvas.height = viewport.height;
 
-                const context = canvas.getContext('2d');
+                        const context = canvas.getContext('2d');
 
-                page.render({ canvasContext: context, viewport }).promise.then(() => {
-                    container.appendChild(canvas);
-                    document.querySelector('.certifications').appendChild(container);
-                });
+                        page.render({ canvasContext: context, viewport }).promise.then(() => {
+                            container.appendChild(canvas);
+                            if (pageNum < numPages) {
+                                renderPage(pageNum + 1); // Render next page
+                            } else {
+                                document.querySelector('.certifications').appendChild(container);
+                            }
+                        });
+                    });
+                };
+
+                renderPage(1); // Start rendering the first page of the current PDF
             });
-        }
-    });
-</script>
+        });
+    </script>
 
 <body>
     <div class="container">
