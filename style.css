@@ -210,3 +210,7 @@ img:hover {
     object-fit: contain;
     /* Ensures the icons retain their aspect ratio and fit within the box */
 }
+.certifications canvas {
+    max-width: 100%; /* Responsive sizing */
+    height: auto;    /* Maintain aspect ratio */
+}
